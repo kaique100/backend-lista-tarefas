@@ -16,12 +16,19 @@ app.post('/tarefas', (req, res) => {
 
 // Rota para obter todas as tarefas
 app.get('/tarefas/:id', (req, res) => {
-    // Lógica para obter uma tarefas do banco de dados pelo seu ID
-});
+    const { id } = req.params;
+    const t = tarefas.find(t => t.id === parseInt(id));
+    if (t) {
+      res.status(200).json(t);
+    } else {
+      res.status(404).json({ error: 'Tarefa não encontrada!' });
+    }
+  });
 
 // Rota para obter uma tarefas específica
 app.get('/tarefas', (req, res) => {
     // Lógica para obter e retornar todas as tarefas do banco de dados
+    res.status(200).json(tarefas);
 });
 
 // Rota para editar uma tarefa existente
